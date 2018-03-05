@@ -1,0 +1,54 @@
+= Service Mesh Terms and Impacts
+
+Here we are looking to define a common 
+
+Container Image: layered lightweight  Docker-formatted container images. An image is a binary that includes all of the requirements for running a single container, as well as metadata describing its needs and capabilities.
+[NOTE]
+Affects: None
+
+ConfigMap: can be used to store fine-grained information like individual properties or coarse-grained information like entire config files or JSON blobs.
+[NOTE]
+Affects: config api
+
+Secret: an object that contains a small amount of sensitive data such as a password, a token, or a key. Such information might otherwise be put in a Pod specification or in an image; putting it in a Secret object allows for more control over how it is used, and reduces the risk of accidental exposure.
+[NOTE]
+Affects: config api
+
+Node: A node provides the runtime environments for containers. Each node in a Kubernetes cluster has the required services to be managed by the master. Nodes also have the required services to run pods, including the Docker service, a kubelet, and a service proxy.
+
+Pod:  group of one or more containers (such as Docker containers), with shared storage/network, and a specification for how to run the containers. A pod’s contents are always co-located and co-scheduled, and run in a shared context. A pod models an application-specific “logical host” - it contains one or more application containers which are relatively tightly coupled — in a pre-container world, they would have executed on the same physical or virtual machine.
+Affects: possibly opentracing, 
+
+Deployment: describe the desired state of a particular component of an application as a pod template. Kubernetes deployments create replica sets (an iteration of replication controllers), which orchestrate pod lifecycles.
+Affects: Metrics, opentracing, 
+
+ReplicaSet: ensures that a specified number of pod replicas are running at any given time
+
+Controller: a control loop that watches the shared state of the cluster through the apiserver and makes changes attempting to move the current state towards the desired state.
+
+DNS: Domain name service that supports registration of service IP, port to A and SRV records.
+
+EndpointService: A REST endpoint running in a MicroProfile container providing one or more endpoints providing business logic. This is what the MicroProfile most directly deals with.
+
+ServiceAccount: Service accounts provide a flexible way to control API access without sharing a regular user’s credentials.
+
+MeshService, (k8s service): allows developers to abstract away the functionality of a set of Pods, and expose it to other developers through a well-defined API. It allows adding a name to this level of abstraction and perform rudimentary L4 load balancing. But it doesn’t help with higher-level problems, such as L7 metrics, traffic splitting, rate limiting, circuit breaking, etc.
+
+ServiceProxy: An Istio like proxy layer that supports the L7 behaviors like metrics, traffic splitting, rate limiting, circuit breaking, etc.
+[NOTE]
+Affects: Metrics, Fault tolerance, opentracing, 
+
+ServiceBroker: An implementation of the Open Service Broker API that provides a listing of ManagedServices available for provisioning and binding.
+[NOTE]
+Is the ServiceBroker, ServiceCatalog, ServiceClass, ManagedService a microprofile-service-mesh abstraction we want to define? A prototype of these abstractions that deploys to OpenShift can be found here: https://github.com/starksm64/wildfly-swarm-service-broker[wildfly-swarm-service-broker] 
+
+ManagedService: An external service provisioned and bound by a ServiceBroker.
+
+ServiceCatalog: A collection of ManagedService information from a ServiceBroker.
+
+ServiceClass: A type of ManagedService with information about the service along with plans that vary the service deployment
+
+ServiceInstance: an instance of a ManagedService provisioned by a client.
+
+ServiceBinding: a binding of a ServiceInstance to a Secret
+
