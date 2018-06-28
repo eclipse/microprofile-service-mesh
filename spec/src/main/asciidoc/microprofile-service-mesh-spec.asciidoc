@@ -14,7 +14,7 @@
 //
 
 = Microprofile Service Mesh
-:authors: Emily Jiang, Scott Clarks
+:authors: Emily Jiang, Scott Stark
 :email: emijiang@uk.ibm.com
 :version-label!:
 :sectanchors:
