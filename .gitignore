@@ -1,0 +1,18 @@
+*.class
+.settings/
+.checkstyle
+target/
+tck/bin/
+.project
+build/
+.classpath
+.factorypath
+test-output
+/*.log
+.idea
+*.iml
+*.iwl
+*.ipr
+.DS_STORE
+# Ignore a release.conf for perform_release/* script usage
+release.conf
