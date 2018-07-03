@@ -15,8 +15,63 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-//
-# microprofile-service-mesh
-[![Gitter](https://badges.gitter.im/eclipse/microprofile-service-mesh.svg)](https://gitter.im/eclipse/microprofile-service-mesh?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
+
+== MicroProfile Service Mesh
+
+image:https://badges.gitter.im/eclipse/microprofile-service-mesh.svg[link="https://gitter.im/eclipse/microprofile-service-mesh"]
+
+=== Rationale
+
+Based on some link:https://groups.google.com/forum/#!searchin/microprofile/istio%7Csort:date/microprofile/7obnAXjt3QA/k4htskrcBwAJ [discussion], we need to investigate the relationship between MicroProfile and Service Mesh. 
+
+Why? 
+
+MicroProfile defines programming model for developing cloud-native microservices. Cloud-native microservices normally run in a service mesh. It is important for MicroProfile to understand the capabilities of service mesh, so that MicroProfile can offer complimentary features for the infrastructure and avoid the conflicts. Let's find out what they can offer first.
+
+=== What is a service mesh? 
+A service mesh is a dedicated infrastructure layer for making service-to-service communication safe, fast and reliable. Cloud-native microservices needs a service mesh infrastructure to provide service to service communication QoS. In practice, the service mesh add some lightweigh proxies without microservices needing to be aware. By default, proxies handle only intra-service mesh cluster from source to destination.
+
+The service mesh is a networking model, sitting at layer of transport e.g. TCP/IP. It handles service to service communications. Service mesh manages the communication in the language-agnostic way.
+
+=== Service Mesh Implemenations
+There are two popular service mesh as follows:
+* link:"https://istio.io/"[Istio] 
+* link:"https://linkerd.io/"[Linkerd]
+The above two implementations are both open-source projects and designed for cloud-natvie microservices. Istio uses Lyfts' Envoy as a sidecar proxy while Linkerd is built on top of Netty and Finagle. 
+Istio offers more functionalities than Linkerd, such as enforcing access control and usage policies across the service mesh. Refer to this link:https://abhishek-tiwari.com/a-sidecar-for-your-service-mesh/[page] for more comparison
+
+This specification looks at the service mesh in general with more focus on Istio.
+
+=== What is MicroProfile?
+MicroProfile defines programming model for developing cloud-native microservices. It offers the following capabilities:
+* link:https://github.com/eclipse/microprofile-config/ [MicroProfile Config] : Externalise microservice configuration 
+* link:https://github.com/eclipse/microprofile-fault-tolerance [MicroProfile Fault Tolerance]:  Enable building resilient microservices 
+* link:https://github.com/eclipse/microprofile-health [MicroProfile Health]: provide an endpoint to signify whether the computing node is healthy or not
+* link:https://github.com/eclipse/microprofile-jwt-auth [MicroProfile JWT]: Defined a policy of using openID Connect(OIDC) based JSON Web Tokens (JWT) for role ased acess control for microservice endpoints.
+* link:https://github.com/eclipse/microprofile-rest-client [MicroProfile Rest Client]: a tupe-safe approach to invoke RESTful services over HTTP.
+* link:https://github.com/eclipse/microprofile-metrics [MicroProfile Metrics]: monitoring application in an easy way
+* link:https://github.com/eclipse/microprofile-open-api [MicroProfile Open API] : providing a unified Java API
+* link:https://github.com/eclipse/microprofile-opentracing [MicroProfile Open Tracing]: Tracing the flow of a request across services]
+* link:https://github.com/eclipse/microprofile-reactive [MicroProfile reactive]: provide reactive framework for microservices
+* link:https://github.com/eclipse/microprofile-lra [MicroProfile LRA]: provide transaction capabilities for microservices
+
+
+=== The Ecosystem
+This specification will look at each individual MicroProfile specification and define the best practices on how best to be used in the microservices to be running a service mesh architecture. It will detail the following areas in more details.
+* Config
+* Fault Tolerance
+* Health Check
+* Metrics
+* Open API
+* Open Tracing
+* JWT
+* Rest Client
+* Reactive - to be defined
+* lra
+
+
+
+
 
 
