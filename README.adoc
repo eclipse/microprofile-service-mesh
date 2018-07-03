@@ -27,7 +27,7 @@ Based on some link:https://groups.google.com/forum/#!searchin/microprofile/istio
 
 Why? 
 
-MicroProfile defines programming model for developing cloud-native microservices. Cloud-native microservices normally run in a service mesh. It is important for MicroProfile to understand the capabilities of service mesh, so that MicroProfile can offer complimentary features for the infrastructure and avoid the conflicts. Let's find out what they can offer first.
+MicroProfile defines programming model for developing cloud-native microservices. Cloud Native microservices developed with MicroProfile can take advantage of a Service Mesh by extracting many concerns away from the development of the microservice itself. It is important for MicroProfile to understand the capabilities of service mesh, so that MicroProfile can offer complimentary features for the infrastructure and avoid the conflicts. Let's find out what they can offer first.
 
 === What is a service mesh? 
 A service mesh is a dedicated infrastructure layer for making service-to-service communication safe, fast and reliable. Cloud-native microservices needs a service mesh infrastructure to provide service to service communication QoS. In practice, the service mesh add some lightweigh proxies without microservices needing to be aware. By default, proxies handle only intra-service mesh cluster from source to destination.
@@ -44,34 +44,8 @@ Istio offers more functionalities than Linkerd, such as enforcing access control
 This specification looks at the service mesh in general with more focus on Istio.
 
 === What is MicroProfile?
-MicroProfile defines programming model for developing cloud-native microservices. It offers the following capabilities:
-* link:https://github.com/eclipse/microprofile-config/ [MicroProfile Config] : Externalise microservice configuration 
-* link:https://github.com/eclipse/microprofile-fault-tolerance [MicroProfile Fault Tolerance]:  Enable building resilient microservices 
-* link:https://github.com/eclipse/microprofile-health [MicroProfile Health]: provide an endpoint to signify whether the computing node is healthy or not
-* link:https://github.com/eclipse/microprofile-jwt-auth [MicroProfile JWT]: Defined a policy of using openID Connect(OIDC) based JSON Web Tokens (JWT) for role ased acess control for microservice endpoints.
-* link:https://github.com/eclipse/microprofile-rest-client [MicroProfile Rest Client]: a tupe-safe approach to invoke RESTful services over HTTP.
-* link:https://github.com/eclipse/microprofile-metrics [MicroProfile Metrics]: monitoring application in an easy way
-* link:https://github.com/eclipse/microprofile-open-api [MicroProfile Open API] : providing a unified Java API
-* link:https://github.com/eclipse/microprofile-opentracing [MicroProfile Open Tracing]: Tracing the flow of a request across services]
-* link:https://github.com/eclipse/microprofile-reactive [MicroProfile reactive]: provide reactive framework for microservices
-* link:https://github.com/eclipse/microprofile-lra [MicroProfile LRA]: provide transaction capabilities for microservices
-
+MicroProfile defines programming model for developing cloud-native microservices. It offers the following capabilities, such as config, Fault Tolerance, Metrics, Health, JWT, Open API, Open Tracing etc. As we progress, more and more specification might be defined in MicroProfile. 
 
 === The Ecosystem
-This specification will look at each individual MicroProfile specification and define the best practices on how best to be used in the microservices to be running a service mesh architecture. It will detail the following areas in more details.
-* Config
-* Fault Tolerance
-* Health Check
-* Metrics
-* Open API
-* Open Tracing
-* JWT
-* Rest Client
-* Reactive - to be defined
-* lra
-
-
-
-
-
+This specification will look at each individual MicroProfile specification and define the best practices on how best to be used in the microservices to be running a service mesh architecture. 
 
