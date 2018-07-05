@@ -1,0 +1,117 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: servicea-service
+  labels:
+    app: servicea
+spec:
+  ports:
+  - port: 9080
+    name: http
+  selector:
+    app: servicea
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: servicea-deployment
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: servicea
+    spec:
+      containers:
+      - name: servicea
+        image: SERVICE_TAG_A:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 9080
+        envFrom:
+        - configMapRef:
+            name: mp-istio-sample-servicea-config
+        livenessProbe:
+          exec:
+            command:
+            - curl
+            - -f
+            - http://localhost:9080/health
+          initialDelaySeconds: 10
+          periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: serviceb-service
+spec:
+  ports:
+  - port: 9080
+    name: http
+  selector:
+    app: serviceb
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: serviceb-deployment
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: serviceb
+    spec:
+      containers:
+      - name: serviceb
+        image: SERVICE_TAG_B:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 9080
+        envFrom:
+        - configMapRef:
+            name: mp-istio-sample-serviceb-config
+        livenessProbe:
+          exec:
+            command:
+            - curl
+            - -f
+            - http://localhost:9080/health
+          initialDelaySeconds: 10
+          periodSeconds: 10
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mp-istio-sample-servicea-config
+  namespace: default
+data:
+  svcBHost: serviceb-service
+  svcBPort: "9080"
+  lifetime: "0"
+  failFrequency: "0"
+  MP_Fault_Tolerance_NonFallback_Enabled: "true"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mp-istio-sample-serviceb-config
+  namespace: default
+data:
+  lifetime: "120"
+  failFrequency: "10"
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: mp-istio-sample-istio-ingress
+  annotations:
+    kubernetes.io/ingress.class: "istio"
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /mp-istio-sample/serviceA
+        backend:
+          serviceName: servicea-service
+          servicePort: 9080
