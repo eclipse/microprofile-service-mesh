@@ -25,7 +25,7 @@ image:https://badges.gitter.im/eclipse/microprofile-service-mesh.svg[link="https
 
 Based on some https://groups.google.com/forum/#!searchin/microprofile/istio%7Csort:date/microprofile/7obnAXjt3QA/k4htskrcBwAJ[discussion], we need to investigate the relationship between MicroProfile and Service Mesh. 
 
-===Why? 
+=== Why? 
 
 MicroProfile defines programming model for developing cloud-native microservices. Cloud Native microservices developed with MicroProfile can take advantage of a Service Mesh by extracting many concerns away from the development of the microservice itself. It is important for MicroProfile to understand the capabilities of service mesh, so that MicroProfile can offer complimentary features for the infrastructure and avoid the conflicts. Let's find out what they can offer first.
 
