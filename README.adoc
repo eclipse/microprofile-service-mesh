@@ -23,9 +23,9 @@ image:https://badges.gitter.im/eclipse/microprofile-service-mesh.svg[link="https
 
 === Rationale
 
-Based on some link:https://groups.google.com/forum/#!searchin/microprofile/istio%7Csort:date/microprofile/7obnAXjt3QA/k4htskrcBwAJ [discussion], we need to investigate the relationship between MicroProfile and Service Mesh. 
+Based on some https://groups.google.com/forum/#!searchin/microprofile/istio%7Csort:date/microprofile/7obnAXjt3QA/k4htskrcBwAJ[discussion], we need to investigate the relationship between MicroProfile and Service Mesh. 
 
-Why? 
+===Why? 
 
 MicroProfile defines programming model for developing cloud-native microservices. Cloud Native microservices developed with MicroProfile can take advantage of a Service Mesh by extracting many concerns away from the development of the microservice itself. It is important for MicroProfile to understand the capabilities of service mesh, so that MicroProfile can offer complimentary features for the infrastructure and avoid the conflicts. Let's find out what they can offer first.
 
@@ -36,8 +36,9 @@ The service mesh is a networking model, sitting at layer of transport e.g. TCP/I
 
 === Service Mesh Implemenations
 There are two popular service mesh as follows:
-* link:"https://istio.io/"[Istio] 
-* link:"https://linkerd.io/"[Linkerd]
+
+* https://istio.io/[Istio] 
+* https://linkerd.io/[Linkerd]
 The above two implementations are both open-source projects and designed for cloud-natvie microservices. Istio uses Lyfts' Envoy as a sidecar proxy while Linkerd is built on top of Netty and Finagle. 
 Istio offers more functionalities than Linkerd, such as enforcing access control and usage policies across the service mesh. Refer to this link:https://abhishek-tiwari.com/a-sidecar-for-your-service-mesh/[page] for more comparison
 
