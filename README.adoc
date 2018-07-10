@@ -39,6 +39,7 @@ There are two popular service mesh as follows:
 
 * https://istio.io/[Istio] 
 * https://linkerd.io/[Linkerd]
+
 The above two implementations are both open-source projects and designed for cloud-natvie microservices. Istio uses Lyfts' Envoy as a sidecar proxy while Linkerd is built on top of Netty and Finagle. 
 Istio offers more functionalities than Linkerd, such as enforcing access control and usage policies across the service mesh. Refer to this link:https://abhishek-tiwari.com/a-sidecar-for-your-service-mesh/[page] for more comparison
 
