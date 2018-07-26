@@ -6,10 +6,6 @@ This sample is intended to show the interaction between Istio and the various Mi
 * [Docker](https://www.docker.com/)
 * [Maven](https://maven.apache.org/install.html)
 * [Java 8]: Any compliant JDK should work.
-  * [Java 8 JDK from Oracle](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
-  * [Java 8 JDK from IBM (AIX, Linux, z/OS, IBM i)](http://www.ibm.com/developerworks/java/jdk/),
-    or [Download a Liberty server package](https://developer.ibm.com/assets/wasdev/#filter/assetTypeFilters=PRODUCT)
-    that contains the IBM JDK (Windows, Linux)
 * [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
     * If your cluster is [minikube](https://kubernetes.io/docs/getting-started-guides/minikube/), you will already have this
 * [Istio](https://istio.io)
@@ -31,27 +27,29 @@ The steps involved in building the project are:
 
 ### Build
 
-Each service resides in its own repository. Currently, those repositories are:
+Each service resides in its own repository. Follow the instructions in the READMEs there to build the sample services and package them as docker images.
 * [serviceA](https://github.com/eclipse/microprofile-service-mesh-service-a)
 * [serviceB](https://github.com/eclipse/microprofile-service-mesh-service-b)
 
-Follow the instructions in the READMEs there to build the sample services with maven.
-
 ### Push
 
-The services should be packaged within your docker development environment. Each service has a Dockerfile which can be used to assemble its docker image. Each image should be tagged such that it can be subsequently pushed to your docker repository. An example tag would be <your docker id>/servicea.
-
-Each service image needs to be published to a repository so it will be available to run in your cluster. Assuming you will be using Docker Hub and following on with the example tag for service-a:
-1.  docker login
-3.  docker push <your docker id>/servicea
+If you followed the image naming suggestion from the individual service READMEs, you will have at least 2 images to push named something like &lt;docker id&gt;/servicea-&lt;profile&gt; and &lt;docker id&gt;/serviceb-&lt;profile&gt;. Assuming you're going to use docker hub as your repository, login there and push your images.
 
 ### Deploy
 
-The sample services are installed into your cluster using deployments.yaml. The yaml is preprocessed by istioctl and applied using kubectl.
-1.  Edit deployments.yaml, replacing SERVICE_A_TAG with the tag you used when you pushed servicea to Docker Hub e.g. `<docker id>`/servicea
-2.  Edit deployments.yaml, replacing SERVICE_B_TAG with the tag you used when you pushed serviceb to Docker Hub e.g. `<docker id>`/serviceb
-3.  istioctl kube-inject -f deployments.yaml | kubectl apply -f -
-4.  istioctl create -f gateway.yaml
+You need to create deployment yaml for each service image you built, preprocess it using istioctl and then apply the resulting yaml with kubectl. If you followed the suggested naming convention for your service images, you can use the supplied script. Make sure you can access you cluster with kubectl and that Istio is installed. Use the following command to deploy your images:
+```
+./make-deployments | istioctl kube-inject -f - | kubectl apply -f -
+```
+If you have named your images in some other way, create deployment yaml for each of your images using the supplied deployment-template.yaml as a guide. Then apply your resulting yaml as follows:
+```
+istioctl kube-inject -f <your deployment yaml> | kubectl apply -f -
+```
+Finally, deploy the remaining yaml with the following commands:
+```
+kubectl apply -f services.yaml
+istioctl create -f gateway.yaml
+```
 
 ### Run the Sample
 
