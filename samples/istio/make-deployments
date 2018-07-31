@@ -1,9 +1,11 @@
 #!/usr/bin/bash
 
+# This script expects to read in the out put from docker images
+
 template=deployment-template.yaml
 regex="(.+)/(.*)(service)([ab])([^ ]*) (.*)"
 
-docker images | while read -r line
+while read -r line
 do
   if [[ $line =~ $regex ]]
   then
