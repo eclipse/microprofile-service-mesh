@@ -1,0 +1,33 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: mp-servicemesh-sample-gateway
+spec:
+  selector:
+    istio: ingressgateway # use Istio default gateway implementation
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "*"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: mp-servicemesh-sample
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - mp-servicemesh-sample-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /mp-servicemesh-sample
+    route:
+    - destination:
+        port:
+          number: 8080
+        host: servicea-service
