@@ -103,3 +103,5 @@ You can experiment with the percentage to provoke different fault tolerance beha
 {"time":1532423342925,"source":"org.eclipse.microprofile.servicemesh.servicea.ServiceA$Proxy$_$$_WeldSubclass@58b97ce0","message":"ServiceA fallback. ServiceB could not be reached at: http://serviceb-zervice:8080/mp-servicemesh-sample","callCount":0,"tries":3,"fallback":true}
 ```
 The percentage can be modified by editing fault-injection.yaml and re-running the kubectl command above to update the virtual service.
+
+![Mesh view with fault injection towards ServiceB](kiali2.png)
