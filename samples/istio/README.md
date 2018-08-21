@@ -33,13 +33,18 @@ Each service resides in its own repository. Follow the instructions in the READM
 
 ### Push
 
-If you followed the image naming suggestion from the individual service READMEs, you will have at least 2 images to push named something like &lt;docker id&gt;/servicea-&lt;profile&gt; and &lt;docker id&gt;/serviceb-&lt;profile&gt;. Assuming you're going to use docker hub as your repository, login there and push your images.
+If you followed the image naming suggestion from the individual service READMEs, you will have at least 2 images to 
+push named something like &lt;docker id&gt;/servicea-&lt;profile&gt;:<tag> and &lt;docker id&gt;/serviceb-&lt;profile&gt;:<tag>.
+Assuming you're going to use docker hub as your repository, login there and push your images.
 
 ### Deploy
 
-You need to create deployment yaml for each service image you built, preprocess it using istioctl and then apply the resulting yaml with kubectl. If you followed the suggested naming convention for your service images, you can use the supplied script. Make sure you can access you cluster with kubectl and that Istio is installed. Use the following command to deploy your images:
+You need to create deployment yaml for each service image you built, preprocess
+it using istioctl and then apply the resulting yaml with kubectl.
+If you followed the suggested naming convention for your service images, you can use the supplied script.
+Make sure you can access you cluster with kubectl and that Istio is installed. Use the following command to deploy your images:
 ```
-./make-deployments | istioctl kube-inject -f - | kubectl apply -f -
+awk -f make-deployments.awk | istioctl kube-inject -f - | kubectl apply -f -
 ```
 If you have named your images in some other way, create deployment yaml for each of your images using the supplied deployment-template.yaml as a guide. Then apply your resulting yaml as follows:
 ```
@@ -65,13 +70,16 @@ or
 ```
 {"time":1532423342925,"source":"org.eclipse.microprofile.servicemesh.servicea.ServiceA$Proxy$_$$_WeldSubclass@58b97ce0","message":"ServiceA fallback. ServiceB could not be reached at: http://serviceb-zervice:8080/mp-servicemesh-sample","callCount":0,"tries":3,"fallback":true}
 ```
-This shows that serviceA is working and has tried to communicate with serviceB. Sometimes this falls back depending on the current code in serviceB and whether Istio traffic management has already been applied.
+This shows that serviceA is working and has tried to communicate with serviceB.
+Sometimes this falls back depending on the current code in serviceB and whether Istio traffic management has already been applied.
 
 ### Inject Faults to Provoke Fault Tolerance Behavior
 
 ServiceB can be configured to succeed only every nth time it's called - where n is the failFrequency property in the serviceB configmap.
 
-Delays and faults can be injected into the service calls to test the fault tolerant behavior of the application. A sample Istio virtual service configuration file is provided which will cause 25% of calls to serviceB to fail. The sample virtual service can be installed with this command
+Delays and faults can be injected into the service calls to test the fault tolerant behavior of the application.
+A sample Istio virtual service configuration file is provided which will cause 25% of calls to serviceB to fail.
+The sample virtual service can be installed with this command
 
     kubectl create -f fault-injection.yaml
 

@@ -1,28 +1,31 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: DEPLOYMENT-deployment
+  name: #DEPLOYMENT-deployment
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: SERVICE
+        app: #SERVICE
+        version: #VERSION
+        runtime: #RUNTIME
+        mp-version: #MPVERSION
     spec:
       containers:
-      - name: SERVICE
-        image: IMAGE:latest
+      - name: #SERVICE-#RUNTIME
+        image: #PREFIX/#DEPLOYMENT:#MPVERSION
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
         envFrom:
         - configMapRef:
-            name: SERVICE-config
+            name: #SERVICE-config
         livenessProbe:
           exec:
             command:
             - curl
             - -f
             - http://localhost:8080/health
-          initialDelaySeconds: 10
+          initialDelaySeconds: 30
           periodSeconds: 10
