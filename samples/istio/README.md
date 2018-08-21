@@ -62,6 +62,14 @@ You now have the sample installed in your cluster. The entrypoint for the sample
 ```
 http://<your kubernetes cluster>/mp-servicemesh-sample/serviceA
 ```
+
+Or by using the Istio-Ingressgateway (exposed by an OpenShift route):
+
+```
+http://istio-ingressgateway-istio-system.172.31.7.9.nip.io/mp-servicemesh-sample/serviceA
+```
+
+
 The result should look something like:
 ```
 {"time":1532422406926,"source":"org.eclipse.microprofile.servicemesh.servicea.ServiceA$Proxy$_$$_WeldSubclass@9acb4f34","message":"Hello from serviceA","data":{"time":1532422406926,"message":"Hello from serviceB (org.eclipse.microprofile.servicemesh.serviceb.ServiceBEndpoint$Proxy$_$$_WeldSubclass@6d4029a5) at Tue Jul 24 08:53:26 UTC 2018 on serviceb-deployment-5d999b479b-t27g4 (ServiceB call count: 4, failFrequency: 10)","callCount":0,"tries":0,"fallback":false},"callCount":4,"tries":1,"fallback":false}
@@ -72,6 +80,9 @@ or
 ```
 This shows that serviceA is working and has tried to communicate with serviceB.
 Sometimes this falls back depending on the current code in serviceB and whether Istio traffic management has already been applied.
+
+![Mesh view with 2 implementations of ServiceB](kiali.png)
+
 
 ### Inject Faults to Provoke Fault Tolerance Behavior
 
