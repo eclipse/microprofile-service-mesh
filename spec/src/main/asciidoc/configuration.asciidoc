@@ -34,6 +34,37 @@ metadata:
 data:
   example.property.1: hello
   example.property.2: world
+  
+   
+----
+----
+# Use envFrom to load ConfigMaps into environment variables
+
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: mans-not-hot
+  labels:
+    app: mans-not-hot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mans-not-hot
+  template:
+    metadata:
+      labels:
+        app: mans-not-hot
+    spec:
+      containers:
+        - name: app
+          image: gcr.io/mans-not-hot/app:bed1f9d4
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          envFrom:
+          - configMapRef:
+              name: example-config
 ----
 
 Therefore, config properties specified in the config map are automatically injectable to the microservices via MicroProfile Config APIs.
