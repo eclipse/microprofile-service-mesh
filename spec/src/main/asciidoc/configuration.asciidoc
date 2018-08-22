@@ -20,7 +20,7 @@
 
 = MicroProfile Config and Service Mesh
 
-MicroProfile Config provides a solution to externalise the configuration. The default config sources includes environment varialbles, system properties and microprofile-config.properties on the classpath. 
+MicroProfile Config provides a solution to externalise the configuration. The default config sources includes environment variables, system properties and microprofile-config.properties on the classpath. 
 
 The properties defined in Kubernetes config map can be transformed to environment variables via envFrom. After a cloud-native microservice is deployed, if an extra config source is needed, this file can be mounted to configmap, which then use envFrom facility to expose the properties to the microservie. 
 
