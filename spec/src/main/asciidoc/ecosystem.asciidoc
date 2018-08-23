@@ -1,0 +1,164 @@
+// Copyright (c) 2018 Contributors to the Eclipse Foundation
+//
+// See the NOTICE file(s) distributed with this work for additional
+// information regarding copyright ownership.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+// Contributors:
+// Emily Jiang
+//
+
+= MicroProfile Config and Service Mesh
+
+MicroProfile Config provides a solution to externalise the configuration. The default config sources includes environment variables, system properties and microprofile-config.properties on the classpath. 
+
+The properties defined in Kubernetes config map can be transformed to environment variables via envFrom. After a cloud-native microservice is deployed, if an extra config source is needed, this file can be mounted to configmap, which then use envFrom facility to expose the properties to the microservie. 
+
+[source, text]
+----
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: example-config
+  namespace: default
+data:
+  example.property.1: hello
+  example.property.2: world
+  
+   
+----
+----
+# Use envFrom to load ConfigMaps into environment variables
+
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: mans-not-hot
+  labels:
+    app: mans-not-hot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mans-not-hot
+  template:
+    metadata:
+      labels:
+        app: mans-not-hot
+    spec:
+      containers:
+        - name: app
+          image: gcr.io/mans-not-hot/app:bed1f9d4
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          envFrom:
+          - configMapRef:
+              name: example-config
+----
+
+Therefore, config properties specified in the config map are automatically injectable to the microservices via MicroProfile Config APIs.
+
+[source, java]
+----
+@ApplicationScoped
+public class Demo {
+
+    //The property example.property.1 was defined in the configmap of Kubernetes
+    @Inject
+    @ConfigProperty(name="example.property.1") String myProp1;
+    //The property example.property.1 was defined in the configmap of Kubernetes
+    @Inject
+    @ConfigProperty(name="example.property.2") String myProp2;
+    public void echo() {
+        System.out.println(myProp1 + myProp2);
+    }
+}
+----
+The above example demonstrates that MicroProfile Config complements to service mesh via Kubernetes. 
+
+= MicroProfile Health Check and Service Mesh
+In Service Mesh architecture, each pod has a lifecycle. Service Mesh needs to know when to kill a pod and when to route requests to a pod. Therefore, it needs to know each pod's health status. A pod's health status is measured using Liveness and Readiness.
+
+=== Liveness
+Many microservices run for long periods of time and they eventually might transition to broken states, and cannot recover except being restarted. This is called liveness lifecycle.
+
+=== Readiness
+
+Sometimes, microservices are temporarily unable to serve traffic. For example, an application might need to load large data or configuration files during startup. 
+
+=== MicroProfile Health Check
+
+MicroProfile Health Check denotes whether the microservice is live or ready. It exposes an endpoint `/health`. Invoking the endpoint returns either UP (healthy) or DOWN (unhealthy).
+ 
+[source, text]
+
+----
+{
+ "outcome": "UP",
+ "checks": [
+    {
+      "name": "MyCheck",
+      "state": "UP",
+      "data: {
+        "key": "value",
+        "key1": "val1",
+        "key2": "val2"
+      }
+    }
+  ]
+}
+
+{
+ "outcome": "DOWN",
+ "checks": [
+   {
+    "name": "check1",
+    "state": "UP"
+   },
+   {
+    "name": "check2",
+    "state": "DOWN"
+   }
+  ]
+}
+
+
+----
+
+=== Service Mesh usage of Liveness and Readiness
+
+Service Mesh e.g. Istio can utilise the readiness and liveness status from the underline component such as Kubernetes. 
+Kubernetes provides liveness probes or readiness probes to detect and remedy such situations. Kubernetes can check the pods frequently. 
+If the pod is not live, it will destroy the pod and start a new one. If the application is not ready, Kubernetes doesn’t want to kill the application, but not to send it requests either. 
+
+
+== The ecosystem
+Service mesh can utilise the endpoint exposed by MicroProfile Health for its liveness probe, so that it can control whether to destroy the pod or not.
+
+[source, text]
+
+----
+livenessProbe:
+          exec:
+            command:
+            - curl
+            - -f
+            - http://localhost:8080/health
+          initialDelaySeconds: 10
+          periodSeconds: 10
+
+----
+The above example demonstrates that MicroProfile Health Check complements to service mesh via Kubernetes.
+
+
