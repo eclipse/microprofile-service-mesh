@@ -44,7 +44,7 @@ it using istioctl and then apply the resulting yaml with kubectl.
 If you followed the suggested naming convention for your service images, you can use the supplied script.
 Make sure you can access you cluster with kubectl and that Istio is installed. Use the following command to deploy your images:
 ```
-awk -f make-deployments.awk | istioctl kube-inject -f - | kubectl apply -f -
+awk -f make-deployment.awk | istioctl kube-inject -f - | kubectl apply -f -
 ```
 If you have named your images in some other way, create deployment yaml for each of your images using the supplied deployment-template.yaml as a guide. Then apply your resulting yaml as follows:
 ```
