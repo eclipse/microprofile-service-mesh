@@ -20,7 +20,7 @@
 
 = MicroProfile Config and Service Mesh
 
-MicroProfile Config provides a solution to externalise the configuration. The default config sources includes environment variables, system properties and microprofile-config.properties on the classpath. 
+MicroProfile Config (https://github.com/eclipse/microprofile-config) provides a solution to externalise the configuration. The default config sources includes environment variables, system properties and microprofile-config.properties on the classpath. 
 
 The properties defined in Kubernetes config map can be transformed to environment variables via envFrom. After a cloud-native microservice is deployed, if an extra config source is needed, this file can be mounted to configmap, which then use envFrom facility to expose the properties to the microservie. 
 
@@ -99,42 +99,8 @@ Sometimes, microservices are temporarily unable to serve traffic. For example, a
 
 === MicroProfile Health Check
 
-MicroProfile Health Check denotes whether the microservice is live or ready. It exposes an endpoint `/health`. Invoking the endpoint returns either UP (healthy) or DOWN (unhealthy).
- 
-[source, text]
+MicroProfile Health Check (https://github.com/eclipse/microprofile-health/) denotes whether the microservice is live or ready. It exposes an endpoint `/health`. Invoking the endpoint returns either UP (healthy) or DOWN (unhealthy).
 
-----
-{
- "outcome": "UP",
- "checks": [
-    {
-      "name": "MyCheck",
-      "state": "UP",
-      "data: {
-        "key": "value",
-        "key1": "val1",
-        "key2": "val2"
-      }
-    }
-  ]
-}
-
-{
- "outcome": "DOWN",
- "checks": [
-   {
-    "name": "check1",
-    "state": "UP"
-   },
-   {
-    "name": "check2",
-    "state": "DOWN"
-   }
-  ]
-}
-
-
-----
 
 === Service Mesh usage of Liveness and Readiness
 
