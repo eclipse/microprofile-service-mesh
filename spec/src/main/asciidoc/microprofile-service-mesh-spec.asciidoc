@@ -32,4 +32,5 @@ endif::[]
 include::license-alv2.asciidoc[]
 
 include::terms.asciidoc[]
+include::ecosystem.asciidoc[]
 
