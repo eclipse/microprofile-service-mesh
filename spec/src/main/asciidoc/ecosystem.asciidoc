@@ -92,7 +92,7 @@ If the pod is not live, it will destroy the pod and start a new one. If the appl
 
 
 == The ecosystem
-The health check of Istio services can be achieved via Kubernetes liveness and readiness probe, where MicroProfile health attributes via the exposed health check endpoints with some meaningful response. The response of the liveness probe determines whether to recycle the corresponding pod, while the readiness response determines whether requests can be routed.
+The health check of services in the mesh can be achieved via Kubernetes liveness and readiness probe, where MicroProfile health attributes via the exposed health check endpoints with some meaningful response. The response of the liveness probe determines whether to recycle the corresponding pod, while the readiness response determines whether requests can be routed.
 
 [source, text]
 
