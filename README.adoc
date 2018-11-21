@@ -30,11 +30,11 @@ Based on some https://groups.google.com/forum/#!searchin/microprofile/istio%7Cso
 MicroProfile defines programming model for developing cloud-native microservices. Cloud Native microservices developed with MicroProfile can take advantage of a Service Mesh by extracting many concerns away from the development of the microservice itself. It is important for MicroProfile to understand the capabilities of service mesh, so that MicroProfile can offer complimentary features for the infrastructure and avoid the conflicts. Let's find out what they can offer first.
 
 === What is a service mesh? 
-A service mesh is a dedicated infrastructure layer for making service-to-service communication safe, fast and reliable. Cloud-native microservices needs a service mesh infrastructure to provide service to service communication QoS. In practice, the service mesh add some lightweigh proxies without microservices needing to be aware. By default, proxies handle only intra-service mesh cluster from source to destination.
+A service mesh is a dedicated infrastructure layer for making service-to-service communication safe, fast and reliable. Cloud-native microservices needs a service mesh infrastructure to provide service to service communication QoS. In practice, the service mesh adds some lightweight proxies without microservices needing to be aware. By default, proxies handle only intra-service mesh communication from source to destination.
 
-The service mesh is a networking model, sitting at layer of transport e.g. TCP/IP. It handles service to service communications. Service mesh manages the communication in the language-agnostic way.
+The service mesh is a networking model, sitting at layer of transport e.g. TCP/IP. It handles service-to-service communications. Service mesh manages the communication in a language-agnostic way.
 
-=== Service Mesh Implemenations
+=== Service Mesh Implementations
 There are two popular service mesh as follows:
 
 * https://istio.io/[Istio] 
@@ -46,7 +46,7 @@ Istio offers more functionalities than Linkerd, such as enforcing access control
 This specification looks at the service mesh in general with more focus on Istio.
 
 === What is MicroProfile?
-MicroProfile defines programming model for developing cloud-native microservices. It offers the following capabilities, such as config, Fault Tolerance, Metrics, Health, JWT, Open API, Open Tracing etc. As we progress, more and more specification might be defined in MicroProfile. 
+MicroProfile defines programming model for developing cloud-native microservices. It offers the following capabilities, such as config, Fault Tolerance, Metrics, Health, JWT, Open API, Open Tracing etc. As we progress, more and more specifications might be defined in MicroProfile. 
 
 === The Ecosystem
 This specification will look at each individual MicroProfile specification and define the best practices on how best to be used in the microservices to be running a service mesh architecture. 
