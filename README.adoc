@@ -46,7 +46,7 @@ Istio offers more functionalities than Linkerd, such as enforcing access control
 This specification looks at the service mesh in general with more focus on Istio.
 
 === What is MicroProfile?
-MicroProfile defines programming model for developing cloud-native microservices. It offers the following capabilities, such as config, Fault Tolerance, Metrics, Health, JWT, Open API, Open Tracing etc. As we progress, more and more specification might be defined in MicroProfile. 
+MicroProfile defines a programming model for developing cloud-native microservices. It offers the following capabilities, such as config, Fault Tolerance, Metrics, Health, JWT, Open API, Open Tracing etc. As we progress, more and more specification might be defined in MicroProfile. 
 
 === The Ecosystem
 This specification will look at each individual MicroProfile specification and define the best practices on how best to be used in the microservices to be running a service mesh architecture. 
