@@ -34,7 +34,7 @@ A service mesh is a dedicated infrastructure layer for making service-to-service
 
 The service mesh is a networking model, sitting at layer of transport e.g. TCP/IP. It handles service to service communications. Service mesh manages the communication in the language-agnostic way.
 
-=== Service Mesh Implemenations
+=== Service Mesh Implementations
 There are two popular service mesh as follows:
 
 * https://istio.io/[Istio] 
