@@ -27,5 +27,5 @@ spec:
             - curl
             - -f
             - http://localhost:8080/health
-          initialDelaySeconds: 30
+          initialDelaySeconds: 120
           periodSeconds: 10

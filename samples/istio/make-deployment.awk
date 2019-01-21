@@ -23,33 +23,40 @@ BEGIN {
 		split(ARGV[1],tmp,"=");
 		PREF=tmp[2];
 	}
-	
+
 
 	# read template
 	while(getline < "deployment-template.yaml" > 0)
 		template[++tlines] = $0;
 
 	# read list of images
-	while("docker images" | getline > 0 ) { 
-		
+	while("docker images" | getline > 0 ) {
+
 		if ($0 ~ /service.-/) {
-			if (index($0,PREF) != 1) {				
+			if (index($0,PREF) != 1) {
 				continue;
 			}
+            # Format is either pilhuhn/servicea-thorntail mp1.3
+            # or               docker.io/pilhuhn/servicea-thorntail   mp-1.3
 			# $0 is the entire line and $1..n are the columns
 			# $1 = REPOSITORY column
 			# $2 = TAG column
-			MPVERSION=$2;			
+			MPVERSION=$2;
 			n = split($1, tmp, "/");
-			PREFIX=tmp[1];
-			SVC= tmp[2];
+            if (n == 2) {
+                PREFIX=tmp[1];
+                SVC= tmp[2];
+            } else {
+                PREFIX=tmp["1"]  "/"  tmp[2];
+                SVC= tmp[3];
+            }
 			n = split(SVC, tmp, "-");
 			RUNTIME = tmp[2];
 			SERVICE = tmp[1];
 			VERSION = RUNTIME "-" MPVERSION;
-		
+
 			# print PREFIX, ">", SERVICE, ">",  RUNTIME, ">", MPVERSION, ">", VERSION;
-		
+
 			for (i = 1 ; i <= tlines; i++) {
 				temp = template[i];
 				gsub("#RUNTIME", RUNTIME, temp);
@@ -59,7 +66,7 @@ BEGIN {
 				gsub("#PREFIX", PREFIX, temp);
 				gsub("#DEPLOYMENT", SERVICE"-"RUNTIME, temp);
 				print temp;
-				
+
 			}
 			print "---";
 		}
