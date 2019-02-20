@@ -15,11 +15,25 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
+image:https://badges.gitter.im/eclipse/microprofile-service-mesh.svg[link="https://gitter.im/eclipse/microprofile-service-mesh"]
 
 == MicroProfile Service Mesh
 
-image:https://badges.gitter.im/eclipse/microprofile-service-mesh.svg[link="https://gitter.im/eclipse/microprofile-service-mesh"]
+'''
+== How to contribute
+
+Do you want to contribute to this project? Here is what you can do:
+
+* Fork the repository, make changes, then do a pull request.
+* https://github.com/eclipse/microprofile-service-mesh/issues[Create or fix an issues].
+* https://gitter.im/eclipse/microprofile-service-mesh[Join us on Gitter to discuss this project].
+* Join our https://calendar.google.com/calendar/embed?src=gbnbc373ga40n0tvbl88nkc3r4%40group.calendar.google.com[weekly meeting] on Wednesdays at https://www.timeanddate.com/time/map/[13h00 GMT]. 
+** https://docs.google.com/document/d/1D1d9LZe0gG1Z_c6zaaOv2T_uDxudeSW75VuKHHb6QMk/edit[Minutes and Agenda].
+** https://eclipse.zoom.us/j/949859967[Meeting room].
+* Join the discussions on the https://groups.google.com/forum/#!forum/microprofile[MicroProfile Google Group]
+* https://microprofile.io/blog/[Contribute a blog post].
+
+'''
 
 === Rationale
 
