@@ -292,6 +292,7 @@
                         <exclude>.checkstyle</exclude>
                         <exclude>.factorypath</exclude>
                         <exclude>.editorconfig</exclude>
+                        <exclude>samples/istio/*</exclude>
                     </excludes>
                 </configuration>
             </plugin>

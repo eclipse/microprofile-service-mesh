@@ -19,24 +19,6 @@ image:https://badges.gitter.im/eclipse/microprofile-service-mesh.svg[link="https
 
 == MicroProfile Service Mesh
 
-'''
-== How to contribute
-
-Do you want to contribute to this project? Here is what you can do:
-
-* Fork the repository, make changes, then do a pull request.
-** Remember to https://help.github.com/articles/signing-commits/[sign your commits]
-** Make sure you have signed the https://www.eclipse.org/legal/ECA.php[Eclipse Contributor Agreement]
-* https://github.com/eclipse/microprofile-service-mesh/issues[Create or fix an issue].
-* https://gitter.im/eclipse/microprofile-service-mesh[Join us on Gitter to discuss this project].
-* Join our https://calendar.google.com/calendar/embed?src=gbnbc373ga40n0tvbl88nkc3r4%40group.calendar.google.com[weekly meeting] on Wednesdays at https://www.timeanddate.com/time/map/[13h00 GMT]. 
-** https://docs.google.com/document/d/1D1d9LZe0gG1Z_c6zaaOv2T_uDxudeSW75VuKHHb6QMk/edit[Minutes and Agenda].
-** https://eclipse.zoom.us/j/949859967[Meeting room].
-* Join the discussions on the https://groups.google.com/forum/#!forum/microprofile[MicroProfile Google Group]
-* https://microprofile.io/blog/[Contribute a blog post].
-
-'''
-
 === Rationale
 
 Based on some https://groups.google.com/forum/#!searchin/microprofile/istio%7Csort:date/microprofile/7obnAXjt3QA/k4htskrcBwAJ[discussion], we need to investigate the relationship between MicroProfile and Service Mesh. 
@@ -67,3 +49,5 @@ MicroProfile defines a programming model for developing cloud-native microservic
 === The Ecosystem
 This specification will look at each individual MicroProfile specification and define the best practices on how best to be used in the microservices to be running a service mesh architecture. 
 
+=== Contributing
+Do you want to contribute to this project? link:CONTRIBUTING.adoc[Find out how you can help here].
