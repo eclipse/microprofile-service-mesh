@@ -26,6 +26,6 @@ spec:
             command:
             - curl
             - -f
-            - http://localhost:8080/health
+            - http://localhost:8080/health/live
           initialDelaySeconds: 120
           periodSeconds: 10
